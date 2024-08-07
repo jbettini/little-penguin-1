@@ -1,0 +1,20 @@
+#!/bin/bash
+#qemu-system-x86_64                  \
+	#-m 8G                           \
+	#-cpu qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic                   \
+	#--enable-kvm                    \
+	#-net user,hostfwd=tcp::2222-:4242 \
+	#-net nic
+	#-hda "/home/jbettini/sgoinfre/debian.iso"
+
+qemu-system-x86_64 \
+	-m 8G \
+	-smp cpus=2,threads=2 \
+	-cpu host \
+	-net user,hostfwd=tcp::2222-:4242 \
+	-net nic \
+	--enable-kvm \
+	-vga virtio \
+	-daemonize \
+	-cdrom ~/Downloads/debian-12.6.0-amd64-netinst.iso \
+	-hda ~/sgoinfre/little-penguin-1-x86_64.qcow2

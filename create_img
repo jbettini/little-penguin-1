@@ -1,0 +1,2 @@
+qemu-img \
+create -f qcow2 ~/sgoinfre/little-penguin-1-x86_64.qcow2 20G
