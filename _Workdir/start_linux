@@ -16,5 +16,4 @@ qemu-system-x86_64 \
 	--enable-kvm \
 	-vga virtio \
 	-daemonize \
-	-cdrom ~/Downloads/debian-12.6.0-amd64-netinst.iso \
 	-hda ~/sgoinfre/little-penguin-1-x86_64.qcow2

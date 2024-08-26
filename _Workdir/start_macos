@@ -1,0 +1,20 @@
+#qemu-system-x86_64 \
+ #   -m 8G \
+ #   -smp cpus=2,threads=2 \
+ #   -cpu core2duo \
+ #   -machine type=q35,accel=hvf \
+ #   -net user,hostfwd=tcp::2222-:4242 \
+ #   -net nic \
+ #   -hda /Users/xtem/Desktop/little/ass0.qcow2
+    
+    #-hda /Users/xtem/Desktop/little/petit_penguin1.qcow2
+
+qemu-system-x86_64 \
+    -m 8G \
+    -smp cpus=2 \
+    -cpu core2duo \
+    -machine type=q35,accel=hvf \
+    -netdev user,id=mynet0,hostfwd=tcp::2222-:22 \
+    -device virtio-net-pci,netdev=mynet0 \
+    -hda ./little-penguin-1-x86_64.qcow2 
+
