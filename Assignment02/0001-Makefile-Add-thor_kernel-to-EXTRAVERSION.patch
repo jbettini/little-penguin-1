@@ -1,0 +1,29 @@
+From 974a35ecfce5484c39ce2edaae4192e5be6e73e8 Mon Sep 17 00:00:00 2001
+From: jbettini <ashhxtm@gmail.com>
+Date: Tue, 27 Aug 2024 06:57:19 +0200
+Subject: [PATCH] Makefile: Add -thor_kernel to EXTRAVERSION
+
+According to the rules of assignment02
+I modified EXTRAVERSION to add -thor_kernel to it
+
+Signed-off-by: jbettini <ashhxtm@gmail.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 7b60eb103..07a222d9b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 11
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc5
++EXTRAVERSION = -rc5-thor_kernel
+ NAME = Baby Opossum Posse
+ 
+ # *DOCUMENTATION*
+-- 
+2.44.0
+
