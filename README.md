@@ -15,7 +15,7 @@ I completed this project on my Linux From Scratch (LFS) distribution, which allo
 To follow along with this project, you will need:
 
 -    An LFS installation or another Linux distribution
--    Kernel development tools such as gcc, make, and git
+-    Kernel development tools such as gcc, make, and git. Ensure you have gpg for signing commits and verifying patches.
 -    Access to the Linux kernel sources (obtained from git.kernel.org)
 
 ## Instructions

@@ -16,7 +16,7 @@ void cleanup_module(void)
 }
 
 
-/*	NEW METHOD
+/*	METHODE 2
 
 static int __init hello(void) 
 { 
