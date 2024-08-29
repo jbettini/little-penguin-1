@@ -28,15 +28,3 @@ cd Little-Penguin-1
 ## Assignments
 
 The project consists of several assignments, each focusing on different aspects of kernel development. For detailed explanations and methods for completing each assignment, consult the [wiki](https://github.com/jbettini/Little-Penguin-1/wiki).
-
-
-
-
-
-    Assignment 03: USB Keyboard Module - Setting up a module to automatically load when a USB keyboard is plugged in.
-    Assignment 04: Misc Character Device Driver - Implementing a character device driver using the misc interface.
-    Assignment 05: Linux-Next Kernel - Building and booting the linux-next kernel.
-    Assignment 06: Debugfs Interface - Creating a debugfs interface with custom files.
-    Assignment 07: Code Style and Bug Fixing - Fixing coding style issues and bugs in kernel code.
-    Assignment 08: List Mount Points Module - Developing a module to list mount points from /proc.
-
