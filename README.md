@@ -28,3 +28,4 @@ cd Little-Penguin-1
 ## Assignments
 
 The project consists of several assignments, each focusing on different aspects of kernel development. For detailed explanations and methods for completing each assignment, consult the [wiki](https://github.com/jbettini/Little-Penguin-1/wiki).
+
