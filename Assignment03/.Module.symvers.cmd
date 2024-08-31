@@ -1,0 +1,1 @@
+savedcmd_/root/Little-Penguin-1/Assignment03/Module.symvers :=  scripts/mod/modpost -M        -o /root/Little-Penguin-1/Assignment03/Module.symvers -n -T /root/Little-Penguin-1/Assignment03/modules.order -i Module.symvers -e 

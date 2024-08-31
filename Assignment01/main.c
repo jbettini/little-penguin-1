@@ -4,20 +4,6 @@
 
 MODULE_LICENSE("GPL");
 
-int init_module(void)
-{
-    printk(KERN_INFO "Hello, World!\n");
-    return 0;
-}
-
-void cleanup_module(void)
-{
-    printk(KERN_INFO "Cleaning up module.\n");
-}
-
-
-/*	METHODE 2
-
 static int __init hello(void) 
 { 
     printk("Hello, world\n"); 
@@ -31,4 +17,18 @@ static void __exit clean(void)
 
 module_init(hello); 
 module_exit(clean);
- */
+
+/*	METHODE 2
+int init_module(void)
+{
+    printk(KERN_INFO "Hello, World!\n");
+    return 0;
+}
+
+void cleanup_module(void)
+{
+    printk(KERN_INFO "Cleaning up module.\n");
+}
+*/
+
+

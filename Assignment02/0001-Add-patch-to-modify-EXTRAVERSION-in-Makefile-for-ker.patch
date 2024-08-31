@@ -1,10 +1,10 @@
-From 974a35ecfce5484c39ce2edaae4192e5be6e73e8 Mon Sep 17 00:00:00 2001
+From fd38c58c0cffe0d2d24f27229c978fe959285c33 Mon Sep 17 00:00:00 2001
 From: jbettini <ashhxtm@gmail.com>
-Date: Tue, 27 Aug 2024 06:57:19 +0200
-Subject: [PATCH] Makefile: Add -thor_kernel to EXTRAVERSION
+Date: Fri, 30 Aug 2024 06:30:53 +0200
+Subject: [PATCH] Add patch to modify EXTRAVERSION in Makefile for kernel
+ version string
 
-According to the rules of assignment02
-I modified EXTRAVERSION to add -thor_kernel to it
+This commit updates the EXTRAVERSION field in the Makefile to append "-thor_kernel" to the kernel version string.
 
 Signed-off-by: jbettini <ashhxtm@gmail.com>
 ---
