@@ -12,9 +12,10 @@
 qemu-system-x86_64 \
     -m 8G \
     -smp cpus=2 \
+    -monitor stdio \
     -cpu core2duo \
     -machine type=q35,accel=hvf \
     -netdev user,id=mynet0,hostfwd=tcp::2222-:22 \
     -device virtio-net-pci,netdev=mynet0 \
+    -device qemu-xhci \
     -hda ./little-penguin-1-x86_64.qcow2 
-

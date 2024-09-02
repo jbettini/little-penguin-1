@@ -10,10 +10,10 @@
 qemu-system-x86_64 \
 	-m 8G \
 	-smp cpus=2,threads=2 \
-	-cpu host \
+    -monitor stdio \
+    -cpu core2duo \
 	-net user,hostfwd=tcp::2222-:4242 \
 	-net nic \
-	--enable-kvm \
-	-vga virtio \
-	-daemonize \
+	-enable-kvm \
+    -device qemu-xhci \
 	-hda ~/sgoinfre/little-penguin-1-x86_64.qcow2
