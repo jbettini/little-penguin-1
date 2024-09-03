@@ -1,2 +1,5 @@
-SUBSYSTEM=="input", ACTION=="add", ENV{ID_BUS}=="usb", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="/usr/bin/make -C /usr/sbin/insmod /root/Little-Penguin-1/Assignment04/", RUN+="/usr/sbin/insmod /root/Little-Penguin-1/Assignment04/main.ko"
-SUBSYSTEM=="input", ACTION=="remove", ENV{ID_BUS}=="usb", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="/usr/bin/make -C /root/Little-Penguin-1/Assignment04/main.ko clean", RUN+="/usr/sbin/rmmod /root/Little-Penguin-1/Assignment04/main.ko"
+SUBSYSTEM=="input", ACTION=="add", ENV{ID_BUS}=="usb", ENV{ID_INPUT_KEYBOARD}=="1", \
+RUN+="/sbin/insmod    /root/Little-Penguin-1/Assignment04/main.ko"
+
+SUBSYSTEM=="input", ACTION=="remove", ENV{ID_BUS}=="usb", ENV{ID_INPUT_KEYBOARD}=="1", \
+RUN+="/sbin/rmmod /root/Little-Penguin-1/Assignment04/main.ko"
