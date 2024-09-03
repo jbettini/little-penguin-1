@@ -1,0 +1,9 @@
+[ 8846.989686] usb 1-1: new high-speed USB device number 26 using xhci_hcd
+[ 8847.120952] usb 1-1: New USB device found, idVendor=0627, idProduct=0001, bcdDevice= 0.00
+[ 8847.120952] usb 1-1: New USB device strings: Mfr=1, Product=4, SerialNumber=11
+[ 8847.120952] usb 1-1: Product: QEMU USB Keyboard
+[ 8847.120952] usb 1-1: Manufacturer: QEMU
+[ 8847.120952] usb 1-1: SerialNumber: 68284-0000:00:03.0-1
+[ 8847.127699] input: QEMU QEMU USB Keyboard as /devices/pci0000:00/0000:00:03.0/usb1/1-1/1-1:1.0/0003:0627:0001.0019/input/input28
+[ 8847.210218] hid-generic 0003:0627:0001.0019: input,hidraw0: USB HID v1.11 Keyboard [QEMU QEMU USB Keyboard] on usb-0000:00:03.0-1/input0
+[ 8847.224906] Hello, world
