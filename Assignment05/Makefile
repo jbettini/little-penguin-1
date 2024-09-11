@@ -1,4 +1,4 @@
-obj-m := main.o
+obj-m := misc.o
 PWD = $(shell pwd)
 KDIR = /lib/modules/$(shell uname -r)/build
 

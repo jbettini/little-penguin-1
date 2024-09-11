@@ -1,3 +1,0 @@
-qemu-img create -f qcow2 ./little-penguin-1-x86_64.qcow2 20G
-qemu-img convert -f raw -O qcow2 ./lfs.iso little-penguin-1-x86_64.qcow2
-

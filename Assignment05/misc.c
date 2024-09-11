@@ -4,14 +4,13 @@
 #include <linux/module.h>
 #include <linux/miscdevice.h>
 
-#define MAX_SIZE 256
+#define LOGIN_SIZE 8
+#define LOGIN "jbettini"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("jbettini");
 MODULE_DECRIPTION("A simple misc device");
-
-
-
+	
 static int my_open(struct inode *node, struct file *file) {
 	printk(KERN_INFO "Misc Device number %d %d - Open function called\n", imajor(inode), iminor(inode));
 	if (file->f_mode & FMODE_READ)
@@ -26,13 +25,41 @@ static int my_close(struct inode *node, struct file *file) {
 	return 0;
 }
 
-static int my_read(struct file *file, const char *user_buf, size_t user_len, lofft_t *ppos) {
-		
+static int my_write(struct file *file, const char *user_buf, size_t user_len, lofft_t *ppos) {
+	char buf[LOGIN_SIZE];
+	
+	if (user_len != LOGIN_SIZE) {
+		printk(KERN_INFO "Misc Device - Write function called with incorrect login\n");
+		return -EINVAL;
+	}
+	if (copy_from_user(buf, user_buf, LOGIN_SIZE)) {
+		printk(KERN_INFO "Misc Device - Error copying data from userspace\n");
+		return -EFAULT;
+	}
+	if (memcmp(buf, LOGIN, LOGIN_SIZE) != 0) {
+		printk(KERN_INFO "Misc Device - Write function called with incorrect login\n");
+		return -EINVAL;
+	}
+	printk(KERN_INFO "Misc Device - Write function called\n");
+	return LOGIN_SIZE;
 }
 
-static int my_write(struct file *file, const char *user_buf, size_t user_len, lofft_t *ppos) {
-		
+static char *my_read(struct file *file, const char *user_buf, size_t user_len, lofft_t *ppos) {
+	int	rest = LOGIN_SIZE - *ppos;
+	if (!user_buf)
+		return -EINVAL;
+	if (*ppos >= LOGIN_SIZE)
+		return 0;
+	int len = user_len >= rest ? rest : user_len;
+	if (copy_to_user(user_buf, (LOGIN + *ppos), len)) {
+		printk(KERN_INFO "Misc Device - Error copying data to userspace\n");
+		return -EFAULT;
+	}
+	printk(KERN_INFO "Misc Device - Read function called\n");
+	*ppos += len;
+	return len;
 }
+
 
 static const struct file_operations fops = {
 	.owner = THIS_MODULE,
@@ -52,9 +79,10 @@ static int __init hello(void)
 { 
 	int status = misc_register(&my_misc);
 	if (status) {
-		printk("Hello, world\n"); 
+		printk(KERN_INFO "Error: misc register\n");
 		return -status;
 	}
+	printk("Hello, world\n"); 
 	return 0; 
 } 
 
