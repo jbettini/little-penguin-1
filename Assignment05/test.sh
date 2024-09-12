@@ -17,8 +17,8 @@ exec 3< /dev/fortytwo
 read -n 7 first <&3
 read -n 8 second <&3
 
-echo "Première lecture : $first"
-echo "Deuxième lecture : $second"
+echo "First read : $first"
+echo "Second read : $second"
 
 exec 3<&-
 
