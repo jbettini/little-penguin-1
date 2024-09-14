@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -10,52 +11,58 @@
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("jbettini");
 MODULE_DESCRIPTION("A simple misc device");
-	
-static int my_open(struct inode *node, struct file *file) {
-	printk(KERN_INFO "Misc Device number %d %d - Open function called\n", imajor(node), iminor(node));
+
+static int my_open(struct inode *node, struct file *file)
+{
+	pr_info("Misc Device number %d %d - Open function called\n", imajor(node), iminor(node));
 	if (file->f_mode & FMODE_READ)
-		printk(KERN_INFO "Misc Device - Open function called with read permissions\n");
+		pr_info("Misc Device - Open function called with read permissions\n");
 	if (file->f_mode & FMODE_WRITE)
-		printk(KERN_INFO "Misc Device - Open function called with write permissions\n");
+		pr_info("Misc Device - Open function called with write permissions\n");
 	return 0;
 }
 
-static int my_close(struct inode *node, struct file *file) {
-	printk(KERN_INFO "Misc Device number %d %d - Close function called\n", imajor(node), iminor(node));
+static int my_close(struct inode *node, struct file *file)
+{
+	pr_info("Misc Device number %d %d - Close function called\n", imajor(node), iminor(node));
 	return 0;
 }
 
-static ssize_t my_write(struct file *file, const char __user *user_buf, size_t user_len, loff_t *ppos) {
+static ssize_t my_write(struct file *file, const char __user *user_buf, size_t user_len, loff_t *ppos)
+{
 	char buf[LOGIN_SIZE];
-	
+
 	if (user_len != LOGIN_SIZE) {
-		printk(KERN_INFO "Misc Device - Write function called with incorrect login size\n");
+		pr_warn("Misc Device - Write function called with incorrect login size\n");
 		return -EINVAL;
 	}
 	if (copy_from_user(buf, user_buf, LOGIN_SIZE)) {
-		printk(KERN_INFO "Misc Device - Error copying data from userspace\n");
+		pr_err("Misc Device - Error copying data from userspace\n");
 		return -EFAULT;
 	}
 	if (memcmp(buf, LOGIN, LOGIN_SIZE) != 0) {
-		printk(KERN_INFO "Misc Device - Write function called with incorrect login\n");
+		pr_warn("Misc Device - Write function called with incorrect login\n");
 		return -EINVAL;
 	}
-	printk(KERN_INFO "Misc Device - Write function called\n");
+	pr_info("Misc Device - Write function called\n");
 	return LOGIN_SIZE;
 }
 
-static ssize_t my_read(struct file *file, char __user *user_buf, size_t user_len, loff_t *ppos) {
+static ssize_t my_read(struct file *file, char __user *user_buf, size_t user_len, loff_t *ppos)
+{
 	int	rest = LOGIN_SIZE - *ppos;
+
 	if (!user_buf)
 		return -EINVAL;
 	if (*ppos >= LOGIN_SIZE)
 		return 0;
 	int len = user_len >= rest ? rest : user_len;
+
 	if (copy_to_user(user_buf, (LOGIN + *ppos), len)) {
-		printk(KERN_INFO "Misc Device - Error copying data to userspace\n");
+		pr_err("Misc Device - Error copying data to userspace\n");
 		return -EFAULT;
 	}
-	printk(KERN_INFO "Misc Device - Read function called\n");
+	pr_info("Misc Device - Read function called\n");
 	*ppos += len;
 	return len;
 }
@@ -75,22 +82,28 @@ static struct miscdevice my_misc = {
 	.fops = &fops,
 };
 
-static int __init hello(void) 
-{ 
+static int __init hello(void)
+{
 	int status = misc_register(&my_misc);
+
 	if (status) {
-		printk(KERN_INFO "Error: misc register\n");
+		pr_err("Error: misc register\n");
 		return -status;
 	}
-	printk("Hello, world\n"); 
-	return 0; 
-} 
+	pr_info("Hello, world\n");
+	return 0;
+}
 
-static void __exit clean(void) 
-{ 
-	printk(KERN_INFO "Cleaning up module.\n");
-	misc_deregister(&my_misc);
-} 
+static void __exit clean(void)
+{
+	int status = misc_deregister(&my_misc);
 
-module_init(hello); 
+	if (status) {
+		pr_err("Error: misc deregister\n");
+		return -status;
+	}
+	pr_info("Cleaning up module.\n");
+}
+
+module_init(hello);
 module_exit(clean);
