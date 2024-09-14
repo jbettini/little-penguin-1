@@ -96,12 +96,7 @@ static int __init hello(void)
 
 static void __exit clean(void)
 {
-	int status = misc_deregister(&my_misc);
-
-	if (status) {
-		pr_err("Error: misc deregister\n");
-		return -status;
-	}
+	misc_deregister(&my_misc);
 	pr_info("Cleaning up module.\n");
 }
 

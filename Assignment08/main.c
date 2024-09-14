@@ -1,8 +1,4 @@
 // SPDX-License-Identifier: GPL-2.0
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("jbettini");
-MODULE_DESCRIPTION("Misc Device");
-
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
@@ -10,11 +6,15 @@ MODULE_DESCRIPTION("Misc Device");
 #include <linux/fs.h>
 #include <linux/slab.h>
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
+MODULE_DESCRIPTION("Misc Device");
+
 char str[PAGE_SIZE];
 
-ssize_t my_read(struct file *_fp, char __user *user, size_t size, loff_t *offs)
+static ssize_t my_read(struct file *_fp, char __user *user, size_t size, loff_t *offs)
 {
-	char tmp[PAGE_SIZE];
+	char *tmp = kmalloc(sizeof(char) * PAGE_SIZE + 1, GFP_KERNEL);
 
 	size_t t = -1;
 	size_t i = -1;
@@ -22,17 +22,24 @@ ssize_t my_read(struct file *_fp, char __user *user, size_t size, loff_t *offs)
 	while (t < PAGE_SIZE && str[t])
 		tmp[++i] = str[++t];
 	tmp[++i] = '\0';
+	ssize_t ret = simple_read_from_buffer(user, size, offs, tmp, i);
 
-	return simple_read_from_buffer(user, size, offs, tmp, i);
+	if (ret < 0)
+		pr_err("Error: simple_read_from_buffer Fail");
+	kfree(tmp);
+	pr_info("Function Read Called");
+	return ret;
 }
 
-ssize_t my_write(struct file *_fp, const char __user *user, size_t size, loff_t *offs)
+static ssize_t my_write(struct file *_fp, const char __user *user, size_t size, loff_t *offs)
 {
-	ssize_t res;
+	ssize_t ret = simple_write_to_buffer(str, size, offs, user, size);
 
-	res = simple_write_to_buffer(str, size, offs, user, size) + 1;
+	if (ret < 0)
+		pr_err("Error: simple_read_from_buffer Fail");
 	str[size + 1] = '\0';
-	return res;
+	pr_info("Function Write Called");
+	return ret;
 }
 
 static const struct file_operations myfd_fops = {
@@ -52,7 +59,7 @@ static int __init myfd_init(void)
 	int retval = misc_register(&myfd_device);
 
 	if (retval) {
-		pr_info("Error: misc register\n");
+		pr_err("Error: misc register\n");
 		return -retval;
 	}
 	return 0;
@@ -60,8 +67,8 @@ static int __init myfd_init(void)
 
 static void __exit myfd_cleanup(void)
 {
+	misc_deregister(&myfd_device);
 	pr_info("Cleaning up module.\n");
-	misc_deregister(&my_misc);
 }
 
 module_init(myfd_init);
