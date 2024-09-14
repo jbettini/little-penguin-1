@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: GPL-2.0
-
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
@@ -7,10 +6,13 @@
 #include <linux/printk.h>
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
+MODULE_DESCRIPTION("An exemple of a good coding style");
 
-/* 
-A long sleep, and tell userspace about it
-*/
+/*
+ * A long sleep, and tell userspace about it
+ */
+
 static int wait_and_return_square(int *i)
 {
 	int y = *i;
@@ -26,6 +28,7 @@ static int wait_and_return_square(int *i)
 static int __init my_init(void)
 {
 	int x = 10;
+
 	return wait_and_return_square(&x);
 }
 
