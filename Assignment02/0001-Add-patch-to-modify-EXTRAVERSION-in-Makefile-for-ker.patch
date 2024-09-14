@@ -1,6 +1,6 @@
-From fd38c58c0cffe0d2d24f27229c978fe959285c33 Mon Sep 17 00:00:00 2001
+From e93c16452562e582f7c75ec9b2183870e51e4891 Mon Sep 17 00:00:00 2001
 From: jbettini <ashhxtm@gmail.com>
-Date: Fri, 30 Aug 2024 06:30:53 +0200
+Date: Fri, 13 Sep 2024 14:34:25 +0200
 Subject: [PATCH] Add patch to modify EXTRAVERSION in Makefile for kernel
  version string
 
@@ -12,15 +12,15 @@ Signed-off-by: jbettini <ashhxtm@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 7b60eb103..07a222d9b 100644
+index 2966d5fbb..0ee4b8c97 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
  VERSION = 6
  PATCHLEVEL = 11
  SUBLEVEL = 0
--EXTRAVERSION = -rc5
-+EXTRAVERSION = -rc5-thor_kernel
+-EXTRAVERSION = -rc7
++EXTRAVERSION = -rc7-thor_kernel
  NAME = Baby Opossum Posse
  
  # *DOCUMENTATION*
