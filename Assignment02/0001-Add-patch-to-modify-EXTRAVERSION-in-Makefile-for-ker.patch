@@ -4,7 +4,8 @@ Date: Fri, 13 Sep 2024 14:34:25 +0200
 Subject: [PATCH] Add patch to modify EXTRAVERSION in Makefile for kernel
  version string
 
-This commit updates the EXTRAVERSION field in the Makefile to append "-thor_kernel" to the kernel version string.
+This commit updates the EXTRAVERSION field in the Makefile,
+append "-thor_kernel" to the kernel version string.
 
 Signed-off-by: jbettini <ashhxtm@gmail.com>
 ---
