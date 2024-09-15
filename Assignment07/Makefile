@@ -1,5 +1,5 @@
 obj-m := debugfs.o
-debugfs-objs := id.o main.o
+debugfs-objs := foo.o jiffies.o id.o main.o
 
 
 PWD = $(shell pwd)
