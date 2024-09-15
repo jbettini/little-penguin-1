@@ -1,3 +1,0 @@
-0x00000000	foo_fops	/root/little-penguin-1/Assignment07/debugfs	EXPORT_SYMBOL	
-0x00000000	jiffies_fops	/root/little-penguin-1/Assignment07/debugfs	EXPORT_SYMBOL	
-0x00000000	id_fops	/root/little-penguin-1/Assignment07/debugfs	EXPORT_SYMBOL	
