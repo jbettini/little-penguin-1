@@ -4,10 +4,6 @@
 #define LOGIN_SIZE 8
 #define LOGIN "jbettini"
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("jbettini");
-MODULE_DESCRIPTION("id file following ass07 rules");
-
 int id_open(struct inode *node, struct file *file)
 {
 	pr_info("Misc Device number %d %d - Open function called\n", imajor(node), iminor(node));

@@ -3,10 +3,6 @@
 #include <linux/jiffies.h>
 #include <linux/types.h>
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("jbettini");
-MODULE_DESCRIPTION("Jiffies file following ass07 rules.");
-
 int jiffies_open(struct inode *node, struct file *file)
 {
 	pr_info("Jiffies Device number %d %d - Open function called\n", imajor(node), iminor(node));
