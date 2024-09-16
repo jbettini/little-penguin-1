@@ -16,6 +16,7 @@ static int fail(char *Error)
 
 static int __init hello_init(void)
 {
+	mutex_init(&foo_mutex);
 	data = kmalloc(sizeof(struct module_data), GFP_KERNEL);
 	if (!data) {
 		pr_err("Failed to allocate memory for module_data\n");

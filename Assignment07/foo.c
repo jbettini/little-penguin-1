@@ -2,13 +2,9 @@
 #include "debug_fs.h"
 #include <linux/types.h>
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("jbettini");
-MODULE_DESCRIPTION("Foo file following ass07 rules.");
-
-struct mutex foo_mutex;
 static char buf[PAGE_SIZE];
 static size_t len;
+struct mutex foo_mutex;
 
 int foo_open(struct inode *node, struct file *file)
 {
@@ -28,9 +24,9 @@ int foo_close(struct inode *node, struct file *file)
 
 ssize_t foo_read(struct file *file, char __user *user_buf, size_t user_len, loff_t *ppos)
 {
-	mutex_lock(&foo_mutex);
+	if (mutex_lock_interruptible(&foo_mutex))
+		return -EINTR;
 	int ret = simple_read_from_buffer(user_buf, user_len, ppos, buf, len);
-
 	if (ret < 0)
 		pr_err("Error: Foo Device Read function failed.");
 	else
@@ -41,7 +37,8 @@ ssize_t foo_read(struct file *file, char __user *user_buf, size_t user_len, loff
 
 ssize_t foo_write(struct file *file, const char __user *user_buf, size_t user_len, loff_t *ppos)
 {
-	mutex_lock(&foo_mutex);
+	if (mutex_lock_interruptible(&foo_mutex))
+		return -EINTR;
 	if (user_len >= PAGE_SIZE)
 		user_len = PAGE_SIZE - 1;
 	if (copy_from_user(buf, user_buf, user_len)) {

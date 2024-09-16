@@ -2,9 +2,6 @@
 #ifndef MODULE_DEBUG_FS_H
 #define MODULE_DEBUG_FS_H
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("jbettini");
-
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -17,6 +14,8 @@ struct module_data {
 	struct dentry *jiffies_file;
 	struct dentry *foo_file;
 };
+
+extern struct mutex foo_mutex;
 
 int id_open(struct inode *node, struct file *file);
 int id_close(struct inode *node, struct file *file);

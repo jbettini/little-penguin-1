@@ -7,8 +7,6 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("jbettini");
 MODULE_DESCRIPTION("Jiffies file following ass07 rules.");
 
-struct mutex jiffies_mutex;
-
 int jiffies_open(struct inode *node, struct file *file)
 {
 	pr_info("Jiffies Device number %d %d - Open function called\n", imajor(node), iminor(node));
@@ -29,18 +27,14 @@ int jiffies_close(struct inode *node, struct file *file)
 
 ssize_t jiffies_read(struct file *file, char __user *user_buf, size_t user_len, loff_t *ppos)
 {
-	mutex_lock(&jiffies_mutex);
 	if (!user_buf)
 		return -EINVAL;
 	char buf[64];
 	u64 jiffies = get_jiffies_64();
 	int len = snprintf(buf, sizeof(buf), "%llu", jiffies);
-	int ret;
 
 	pr_info("Jiffies Device - Read function called\n");
-	ret = simple_read_from_buffer(user_buf, user_len, ppos, buf, len);
-	mutex_unlock(&jiffies_mutex);
-	return ret;
+	return simple_read_from_buffer(user_buf, user_len, ppos, buf, len);
 }
 
 const struct file_operations jiffies_fops = {
