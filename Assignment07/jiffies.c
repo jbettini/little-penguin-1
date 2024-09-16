@@ -1,6 +1,11 @@
-#include "debug_fs.h" 
+// SPDX-License-Identifier: GPL-2.0
+#include "debug_fs.h"
 #include <linux/jiffies.h>
 #include <linux/types.h>
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
+MODULE_DESCRIPTION("Jiffies file following ass07 rules.");
 
 struct mutex jiffies_mutex;
 
@@ -9,8 +14,7 @@ int jiffies_open(struct inode *node, struct file *file)
 	pr_info("Jiffies Device number %d %d - Open function called\n", imajor(node), iminor(node));
 	if (file->f_mode & FMODE_READ)
 		pr_info("Jiffies Device - Open function called with read permissions\n");
-	if (file->f_mode & FMODE_WRITE)
-	{
+	if (file->f_mode & FMODE_WRITE) {
 		pr_err("Error: Jiffies Device - Open function called with write permissions\n");
 		return -EPERM;
 	}
@@ -45,5 +49,4 @@ const struct file_operations jiffies_fops = {
 	.open = jiffies_open,
 	.release = jiffies_close,
 };
-
 EXPORT_SYMBOL(jiffies_fops);

@@ -1,4 +1,12 @@
-#include "debug_fs.h" 
+// SPDX-License-Identifier: GPL-2.0
+#include "debug_fs.h"
+
+#define LOGIN_SIZE 8
+#define LOGIN "jbettini"
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
+MODULE_DESCRIPTION("id file following ass07 rules");
 
 int id_open(struct inode *node, struct file *file)
 {
@@ -62,5 +70,4 @@ const struct file_operations id_fops = {
 	.open = id_open,
 	.release = id_close,
 };
-
 EXPORT_SYMBOL(id_fops);

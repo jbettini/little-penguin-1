@@ -1,4 +1,9 @@
-#include "debug_fs.h" 
+// SPDX-License-Identifier: GPL-2.0
+#include "debug_fs.h"
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Your Name");
+MODULE_DESCRIPTION("An implementation of debufs");
 
 struct module_data *data;
 

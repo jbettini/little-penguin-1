@@ -1,9 +1,14 @@
-#include "debug_fs.h" 
+// SPDX-License-Identifier: GPL-2.0
+#include "debug_fs.h"
 #include <linux/types.h>
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
+MODULE_DESCRIPTION("Foo file following ass07 rules.");
+
 struct mutex foo_mutex;
-static char buf[PAGE_SIZE]; 
-static size_t len = 0;
+static char buf[PAGE_SIZE];
+static size_t len;
 
 int foo_open(struct inode *node, struct file *file)
 {
@@ -44,8 +49,8 @@ ssize_t foo_write(struct file *file, const char __user *user_buf, size_t user_le
 		return -EFAULT;
 	}
 	buf[user_len] = '\0';
-    	len = user_len;
-    	*ppos += user_len;
+	len = user_len;
+	*ppos += user_len;
 	pr_info("Foo Device - Write function called\n");
 	mutex_unlock(&foo_mutex);
 	return user_len;
@@ -58,6 +63,4 @@ const struct file_operations foo_fops = {
 	.open = foo_open,
 	.release = foo_close,
 };
-
 EXPORT_SYMBOL(foo_fops);
-

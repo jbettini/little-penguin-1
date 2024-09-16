@@ -1,19 +1,15 @@
-// SPDX-License-Identifier: GPL-2.0
-#ifndef MODULE_DEBUGFS_H
-#define MODULE_DEBUGFS_H
+/* SPDX-License-Identifier: GPL-2.0 */
+#ifndef MODULE_DEBUG_FS_H
+#define MODULE_DEBUG_FS_H
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("jbettini");
 
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/debugfs.h>
 #include <linux/fs.h>
-
-#define LOGIN_SIZE 8
-#define LOGIN "jbettini"
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
-MODULE_DESCRIPTION("An implementation of debufs");
 
 struct module_data {
 	struct dentry *dir;
