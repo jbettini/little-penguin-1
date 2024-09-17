@@ -18,7 +18,7 @@ static int wait_and_return_square(int *i)
 	int y = *i;
 	int x = 0;
 
-	while (x++ < i)
+	while (x++ < y)
 		udelay(10);
 	if (y < 10)
 		pr_info("We slept a long time!");
@@ -28,8 +28,10 @@ static int wait_and_return_square(int *i)
 static int __init my_init(void)
 {
 	int x = 10;
+	int result = wait_and_return_square(&x);
 
-	return wait_and_return_square(&x);
+	pr_info("Result: %d\n", result);
+	return 0;
 }
 
 static void __exit my_exit(void)

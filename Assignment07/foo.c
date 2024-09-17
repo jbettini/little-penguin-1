@@ -28,6 +28,7 @@ int foo_close(struct inode *node, struct file *file)
 ssize_t foo_read(struct file *file, char __user *user_buf, size_t user_len, loff_t *ppos)
 {
 	int ret = simple_read_from_buffer(user_buf, user_len, ppos, buf, len);
+
 	if (ret < 0)
 		pr_err("Error: Foo Device Read function failed.");
 	else
@@ -37,9 +38,10 @@ ssize_t foo_read(struct file *file, char __user *user_buf, size_t user_len, loff
 
 ssize_t foo_write(struct file *file, const char __user *user_buf, size_t user_len, loff_t *ppos)
 {
-	if (user_len + *ppos >= PAGE_SIZE)
+	if (user_len + *ppos > PAGE_SIZE)
 		return -ENOMEM;
 	int ret = simple_write_to_buffer(buf, PAGE_SIZE, ppos, user_buf, user_len);
+
 	len = *ppos;
 	pr_info("Foo Device - Write function called\n");
 	return ret;
