@@ -8,21 +8,20 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("jbettini");
-MODULE_DESCRIPTION("Misc Device");
+MODULE_DESCRIPTION("Reverse Misc Device");
 
 char str[PAGE_SIZE];
 
 static ssize_t my_read(struct file *_fp, char __user *user, size_t size, loff_t *offs)
 {
+
+	size_t i = 0;
+	ssize_t t = strlen(str);
 	char *tmp = kmalloc(sizeof(char) * PAGE_SIZE + 1, GFP_KERNEL);
 
-	size_t t = -1;
-	size_t i = -1;
-
-	while (t < PAGE_SIZE && str[t])
-		tmp[++i] = str[++t];
-	tmp[++i] = '\0';
-	ssize_t ret = simple_read_from_buffer(user, size, offs, tmp, i);
+	while (t >= 0)
+		tmp[i++] = str[t--];
+	ssize_t ret = simple_read_from_buffer(user, PAGE_SIZE, offs, tmp, i);
 
 	if (ret < 0)
 		pr_err("Error: simple_read_from_buffer Fail");
@@ -37,7 +36,6 @@ static ssize_t my_write(struct file *_fp, const char __user *user, size_t size, 
 
 	if (ret < 0)
 		pr_err("Error: simple_read_from_buffer Fail");
-	str[size + 1] = '\0';
 	pr_info("Function Write Called");
 	return ret;
 }
