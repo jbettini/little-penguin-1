@@ -42,8 +42,10 @@ static int __init hello_init(void)
 
 static void __exit hello_exit(void)
 {
-	debugfs_remove_recursive(data->dir);
-	kfree(data);
+	if (data) {
+		debugfs_remove_recursive(data->dir);
+		kfree(data);
+	}
 	pr_info("Cleaning up module.\n");
 }
 
