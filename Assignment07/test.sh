@@ -10,6 +10,8 @@ print_color () {
     echo -e "$1$2$FANCY_RESET"
 }
 
+LOGIN="jbettini"
+
 print_color "$TXT_YELLOW" "TEST ID FILE\n"
 
 print_color "$TXT_GREEN" "Checking multiple read\n"
@@ -34,7 +36,7 @@ echo "lol" > /dev/fortytwo
 
 print_color "$TXT_GREEN" "\nChecking good write\n"
 
-echo -n "jbettini" > /dev/fortytwo
+echo -n "$LOGIN" > /dev/fortytwo
 
 print_color "$TXT_GREEN" "\nChecking file rights - must be \"-rw-rw-rw-\", output : \n"
 ls -la /sys/kernel/debug/fortytwo/id
